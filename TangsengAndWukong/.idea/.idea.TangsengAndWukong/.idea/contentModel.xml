@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\jack\.Rider2019.1\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\jack\.Rider2019.1\system\resharper-host\local\Transient\ReSharperHost\v191\SolutionCaches\_TangsengAndWukong.-1190935288.00" t="ExcludeRecursive" />
+    <e p="F:\unityFiles\TangsengAndWukong" t="IncludeRecursive">
+      <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
+      <e p="Assets" t="Include">
+        <e p="Scripts" t="Include">
+          <e p="BaseObjs" t="Include">
+            <e p="BasePlayer.cs" t="Include" />
+            <e p="Cigarette.cs" t="Include" />
+            <e p="Eye.cs" t="Include" />
+            <e p="ShiFu.cs" t="Include" />
+            <e p="TakeCigaretteHand.cs" t="Include" />
+            <e p="TakeFireHand.cs" t="Include" />
+            <e p="Wukong.cs" t="Include" />
+          </e>
+          <e p="Events" t="Include">
+            <e p="ActionTest.cs" t="Include" />
+            <e p="Expression.cs" t="Include" />
+            <e p="SheepButton.cs" t="Include" />
+            <e p="ShiFuLogs.cs" t="Include" />
+          </e>
+          <e p="State" t="Include">
+            <e p="ShiFu" t="Include">
+              <e p="GlobalShiFuState.cs" t="Include" />
+              <e p="SmokingTangSengState.cs" t="Include" />
+              <e p="StayTangSengState.cs" t="Include" />
+              <e p="TobaccoAddictionLevel.cs" t="Include" />
+              <e p="WantSmokeTangSengState.cs" t="Include" />
+            </e>
+            <e p="Smoke" t="Include">
+              <e p="SmokeFiringState.cs" t="Include" />
+              <e p="SmokeStayState.cs" t="Include" />
+            </e>
+            <e p="State.cs" t="Include" />
+            <e p="StateMachine.cs" t="Include" />
+            <e p="WuKong" t="Include">
+              <e p="StayWukongState.cs" t="Include" />
+            </e>
+          </e>
+          <e p="Tools" t="Include">
+            <e p="GameObjectTools.cs" t="Include" />
+            <e p="MoveTools.cs" t="Include" />
+          </e>
+        </e>
+      </e>
+      <e p="obj" t="ExcludeRecursive" />
+      <e p="Packages" t="ExcludeRecursive" />
+      <e p="TangsengAndWukong.sln" t="IncludeFlat" />
+      <e p="Temp\bin" t="ExcludeRecursive" />
+    </e>
+  </component>
+</project>
