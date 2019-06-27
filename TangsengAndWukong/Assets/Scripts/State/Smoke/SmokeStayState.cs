@@ -1,29 +1,22 @@
 using UnityEngine;
 
-public class SmokeStayState : State<Cigarette>
-{
+public class SmokeStayState : State<Cigarette> {
     private static SmokeStayState instance;
 
-    public static SmokeStayState Instance
-    {
+    public static SmokeStayState Instance {
         get { return instance ?? (instance = new SmokeStayState()); }
     }
-    
-    public override void Enter(Cigarette obj)
-    {
+
+    public override void Enter(Cigarette obj) {
         obj.controlSmokeParticle(false);
     }
 
-    public override void Execute(Cigarette obj)
-    {
-        if (obj.isLighting)
-        {
+    public override void Execute(Cigarette obj) {
+        if (obj.isLighting) {
             obj._stateMachine.ChangeState(SmokeFiringState.Instance);
         }
     }
 
-    public override void Exit(Cigarette obj)
-    {
-        
+    public override void Exit(Cigarette obj) {
     }
 }

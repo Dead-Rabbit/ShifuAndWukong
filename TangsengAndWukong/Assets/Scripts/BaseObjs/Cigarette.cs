@@ -1,10 +1,9 @@
 using System;
 using UnityEngine;
 
-public class Cigarette : MonoBehaviour
-{
+public class Cigarette : MonoBehaviour {
     private BasePlayer owner;
-    
+
     [HideInInspector] public SpriteRenderer _spriteRenderer;
 
     public int width = 16;
@@ -34,8 +33,7 @@ public class Cigarette : MonoBehaviour
     public MoveTools _moveTools;
     private bool moveAct;
 
-    public void Start()
-    {
+    public void Start() {
         _stateMachine = new StateMachine<Cigarette>(this);
         _spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
         // 抽烟粒子相关
@@ -53,47 +51,40 @@ public class Cigarette : MonoBehaviour
     }
 
     // 初始化相关值
-    public void Init(BasePlayer owner, float reduceSpeed)
-    {
+    public void Init(BasePlayer owner, float reduceSpeed) {
         this.owner = owner;
-        
+
         this.reduceSpeed = reduceSpeed;
         isLighting = false;
     }
-    
+
     // 点烟
-    public void lightTheCigarette()
-    {
+    public void lightTheCigarette() {
         isLighting = true;
     }
 
-    public void Update()
-    {
+    public void Update() {
         _stateMachine.Update();
 
         // 运动相关
-        if (moveAct)
-        {
+        if (moveAct) {
             transform.localPosition = _moveTools.LerpMoveTo();
 
             // 判断是否到达目标
-            if (_moveTools.checkGetIn(transform.localPosition))
-            {
+            if (_moveTools.checkGetIn(transform.localPosition)) {
                 moveAct = false;
             }
         }
     }
-    
+
     // 更新拥有者的烟瘾程度
-    public void reduceTobaccoAddiction(float value)
-    {
+    public void reduceTobaccoAddiction(float value) {
         ShiFu shifu = (ShiFu) owner;
         shifu.updateTobaccoAddiction(value);
     }
 
     // 设置目标点
-    public void setTargetPosition(Vector3 currectPosition, Vector3 targetPosition, float moveSpeed)
-    {
+    public void setTargetPosition(Vector3 currectPosition, Vector3 targetPosition, float moveSpeed) {
         moveAct = true;
         _moveTools.SetTarget(currectPosition, targetPosition, moveSpeed);
     }
@@ -101,8 +92,7 @@ public class Cigarette : MonoBehaviour
     /**
      * 生成香烟
      */
-    void GenerateSprite()
-    {
+    void GenerateSprite() {
         Texture2D t = new Texture2D(16, 1);
         t.filterMode = FilterMode.Point;
         updateCigaretee(t);
@@ -114,30 +104,25 @@ public class Cigarette : MonoBehaviour
     }
 
     // 更新粒子效果发射位置
-    public void UpdateParticlePosition()
-    {
+    public void UpdateParticlePosition() {
         float targetX = (buttL + pipeL + 0.5f) * 0.01f;
         smoke.transform.localPosition = new Vector3(targetX, smoke.transform.localPosition.y, 0);
     }
 
     // 粒子效果 开启/关闭
-    public void controlSmokeParticle(bool ifOpen)
-    {
+    public void controlSmokeParticle(bool ifOpen) {
         ParticleSystem.EmissionModule emission = smoke.GetComponent<ParticleSystem>().emission;
 
         ParticleSystem.MainModule smokeModule = smoke.GetComponent<ParticleSystem>().main;
 
-        if (smoke != null)
-        {
-            if (ifOpen)
-            {
+        if (smoke != null) {
+            if (ifOpen) {
                 isLighting = true;
                 smokeModule.startSpeed = 0.2f;
                 emission.enabled = true;
                 UpdateParticlePosition();
             }
-            else
-            {
+            else {
                 isLighting = false;
                 smokeModule.startSpeed = 0f;
                 emission.enabled = false;
@@ -146,37 +131,30 @@ public class Cigarette : MonoBehaviour
     }
 
     // 更新香烟状态
-    public void updateCigaretee(Texture2D t)
-    {
-        for (int h = 0; h < height; h++)
-        {
+    public void updateCigaretee(Texture2D t) {
+        for (int h = 0; h < height; h++) {
             // 烟头
-            for (int w = 0; w < buttL; w++)
-            {
+            for (int w = 0; w < buttL; w++) {
                 t.SetPixel(w, h, buttC);
             }
 
             // 烟管
-            for (int w = buttL; w < buttL + pipeL; w++)
-            {
+            for (int w = buttL; w < buttL + pipeL; w++) {
                 t.SetPixel(w, h, pipeC);
             }
 
             // 烟火
-            for (int w = buttL + pipeL; w < buttL + pipeL + fireL; w++)
-            {
+            for (int w = buttL + pipeL; w < buttL + pipeL + fireL; w++) {
                 t.SetPixel(w, h, fireC);
             }
 
             // 烟灰
-            for (int w = buttL + pipeL + fireL; w < buttL + pipeL + fireL + sootL; w++)
-            {
+            for (int w = buttL + pipeL + fireL; w < buttL + pipeL + fireL + sootL; w++) {
                 t.SetPixel(w, h, sootC);
             }
 
             // 烟灰
-            for (int w = buttL + pipeL + fireL + sootL; w < width; w++)
-            {
+            for (int w = buttL + pipeL + fireL + sootL; w < width; w++) {
                 t.SetPixel(w, h, nothingC);
             }
         }

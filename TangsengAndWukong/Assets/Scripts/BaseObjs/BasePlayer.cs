@@ -1,10 +1,6 @@
 ﻿using UnityEngine;
 
-public class BasePlayer : MonoBehaviour
-{
-
-    public virtual void showAllState()
-    {
-        
+public class BasePlayer : MonoBehaviour {
+    public virtual void showAllState() {
     }
 }

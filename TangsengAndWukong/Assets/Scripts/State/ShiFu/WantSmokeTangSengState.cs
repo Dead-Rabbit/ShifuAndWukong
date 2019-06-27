@@ -15,6 +15,7 @@ public class WantSmokeTangSengState : State<ShiFu>
         obj.logs.addMessage("OS：想抽烟了");
     }
 
+    // TODO: 后面会把这些状态拆开
     public override void Execute(ShiFu obj)
     {
         if (obj.preLevel != obj.tobaccoLevel)

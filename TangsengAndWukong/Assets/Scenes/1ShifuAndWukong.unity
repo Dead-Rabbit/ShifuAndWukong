@@ -918,6 +918,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HP: 0
+  tangSeng: {fileID: 1290683274}
 --- !u!1 &438034429
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,8 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ShiFu : BasePlayer
-{
+public class ShiFu : BasePlayer {
     private StateMachine<ShiFu> _stateMachine;
 
     private int runTime;
@@ -17,8 +16,7 @@ public class ShiFu : BasePlayer
 
     // 存储烟的预设
     public GameObject cigarettePerfab;
-    [HideInInspector]
-    public GameObject cigarette;
+    [HideInInspector] public GameObject cigarette;
 
     [HideInInspector] public float tobaccoAddiction = 0f; // 烟瘾
     private float tobaccoAddictionThresholdLookAt; // 瞪悟空的阈值
@@ -26,8 +24,7 @@ public class ShiFu : BasePlayer
     [HideInInspector] public TobaccoAddictionLevel tobaccoLevel;
     [HideInInspector] public TobaccoAddictionLevel preLevel; // 前置状态
 
-    public void Start()
-    {
+    public void Start() {
         runTime = 0;
 
         // 初始化数值
@@ -46,11 +43,9 @@ public class ShiFu : BasePlayer
         initDebugTools();
     }
 
-    public void Update()
-    {
+    public void Update() {
         runTime++;
-        if (runTime >= 20)
-        {
+        if (runTime >= 20) {
             runTime = 0;
 
             // 更新烟瘾
@@ -66,8 +61,7 @@ public class ShiFu : BasePlayer
     /**
      * 更改人物状态
      */
-    public bool changeState(State<ShiFu> currentState)
-    {
+    public bool changeState(State<ShiFu> currentState) {
         _stateMachine.ChangeState(currentState);
         return true;
     }
@@ -75,23 +69,18 @@ public class ShiFu : BasePlayer
     /**
      * 更新leve 这个可以放在state中，后面会优化
      */
-    public void updateTobaccoLevel()
-    {
+    public void updateTobaccoLevel() {
         // 测试输出
-        if (tobaccoAddiction < maxTobaccoAddiction * 0.1)
-        {
+        if (tobaccoAddiction < maxTobaccoAddiction * 0.1) {
             tobaccoLevel = TobaccoAddictionLevel.STAY;
         }
-        else if (tobaccoAddiction < maxTobaccoAddiction * 0.2)
-        {
+        else if (tobaccoAddiction < maxTobaccoAddiction * 0.2) {
             tobaccoLevel = TobaccoAddictionLevel.LOOK_AT;
         }
-        else if (tobaccoAddiction < maxTobaccoAddiction * 0.4)
-        {
+        else if (tobaccoAddiction < maxTobaccoAddiction * 0.4) {
             tobaccoLevel = TobaccoAddictionLevel.SHOOT;
         }
-        else if (tobaccoAddiction < maxTobaccoAddiction * 0.8)
-        {
+        else if (tobaccoAddiction < maxTobaccoAddiction * 0.8) {
             tobaccoLevel = TobaccoAddictionLevel.STRIKE;
         }
     }
@@ -99,10 +88,8 @@ public class ShiFu : BasePlayer
     /**
      * 播放动画
      */
-    public void playAnimator(string animName)
-    {
-        switch (animName)
-        {
+    public void playAnimator(string animName) {
+        switch (animName) {
             case "bazhang":
                 GameObject.Find("shanbazhang").GetComponent<Renderer>().enabled = true;
                 GameObject.Find("shanbazhang").GetComponent<Animator>().SetBool("HiteWukong", true);
@@ -113,8 +100,7 @@ public class ShiFu : BasePlayer
     /**
      * 检查当前是否在播放动画
      */
-    public bool checkIfPlayingAnim(string animName)
-    {
+    public bool checkIfPlayingAnim(string animName) {
 //        animatorInfo = anim.GetCurrentAnimatorStateInfo (0);
 //        logs.addMessage("播放的内容为：" + animatorInfo.IsName("New State"));
 //        
@@ -129,8 +115,7 @@ public class ShiFu : BasePlayer
     /**
      * 增加烟瘾
      */
-    public void updateTobaccoAddiction(float value)
-    {
+    public void updateTobaccoAddiction(float value) {
         tobaccoAddiction += value;
 
         // 如果超过，则控制阈值
@@ -140,8 +125,7 @@ public class ShiFu : BasePlayer
 
     /********************************************调试相关**************************************************/
     // 展示所有状态，用于调试
-    public override void showAllState()
-    {
+    public override void showAllState() {
         string logs = "状态输出\n";
         logs += "烟瘾：" + tobaccoAddiction + "\n";
         Debug.Log(logs);
@@ -153,8 +137,7 @@ public class ShiFu : BasePlayer
     /**
      * 初始化各种调试工具
      */
-    private void initDebugTools()
-    {
+    private void initDebugTools() {
         _tobaccoAddictionSlider = GameObject.Find("TobaccoSlider").GetComponent<Slider>();
         _tobaccoAddictionSlider.maxValue = maxTobaccoAddiction;
         _tobaccoAddictionSlider.value = tobaccoAddiction;
@@ -163,13 +146,11 @@ public class ShiFu : BasePlayer
     /**
      * 更新调试工具
      */
-    private void updateDebugTools()
-    {
+    private void updateDebugTools() {
         _tobaccoAddictionSlider.value = tobaccoAddiction;
     }
 
-    public void debugChangeTobaccoAddition(float value)
-    {
+    public void debugChangeTobaccoAddition(float value) {
         tobaccoAddiction = value;
     }
 }
