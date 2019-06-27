@@ -8,15 +8,19 @@ public class WuKong : BasePlayer {
 
     [HideInInspector] public float HP;
 
+    public GameObject takeCigaretteHand;
+    private Vector3 takeCigarettePosition = new Vector3(-0.11f, 0.22f, 0f);
+    public GameObject takeFireHand;
+
     public ShiFu tangSeng;
 
-    [HideInInspector] public float fear;
+    public float fear;
+    [Range(0, 500)] public float fearMax;
 
-
-//    public Text debugText;
-
-    public void Start() {
+    public void Awake() {
         runTime = 0;
+        fear = 0;
+        fearMax = 100;
 
         _stateMachine = new StateMachine<WuKong>(this);
         _stateMachine.SetCurrentState(StayWukongState.Instance);
@@ -24,6 +28,13 @@ public class WuKong : BasePlayer {
         _stateMachine.SetGlobalState(GlobalWukongState.Instance);
 
         HP = 100f;
+        
+        // 初始化拿着烟的手
+        takeCigaretteHand.GetComponent<TakeCigaretteHand>().Init(this);
+        takeFireHand.GetComponent<TakeFireHand>().Init(this);
+
+        // 初始化调试工具
+        initDebugTools();
     }
 
     public void Update() {
@@ -31,6 +42,41 @@ public class WuKong : BasePlayer {
         if (runTime >= 100) {
             runTime = 0;
             _stateMachine.Update();
+
+            // 更新调试工具
+            updateDebugTools();
         }
+    }
+
+    public void ChangeState(State<WuKong> s) {
+        _stateMachine.ChangeState(s);
+    }
+    
+    /***************************业务相关***************************/
+    public void takeACigarette() {
+        takeCigaretteHand.GetComponent<TakeCigaretteHand>().takeACigarette(takeCigarettePosition);
+    }
+
+    /*************************调试工具相关**************************/
+    private Slider _fearSlider;
+
+    /**
+     * 初始化各种调试工具
+     */
+    private void initDebugTools() {
+        _fearSlider = GameObject.Find("FearSlider").GetComponent<Slider>();
+        _fearSlider.maxValue = fearMax;
+        _fearSlider.value = fear;
+    }
+
+    /**
+     * 更新调试工具
+     */
+    private void updateDebugTools() {
+        _fearSlider.value = fear;
+    }
+
+    public void debugChangeFear(float value) {
+        fear = value;
     }
 }

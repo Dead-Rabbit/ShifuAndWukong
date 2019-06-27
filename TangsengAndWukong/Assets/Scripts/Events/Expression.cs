@@ -10,7 +10,6 @@ public class Expression : MonoBehaviour
     // 看向悟空
     public void lookAtWukong()
     {
-        Debug.Log("look at");
         leftEye.moveTo(0.01f, 8f);
         rightEye.moveTo(0.01f, 8f);
     }

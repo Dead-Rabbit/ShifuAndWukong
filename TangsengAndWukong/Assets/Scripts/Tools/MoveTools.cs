@@ -25,6 +25,19 @@ public class MoveTools
         this.moveSpeed = moveSpeed;
     }
     
+    // 设定最终目标
+    public void SetTargetDistance(Vector3 currectPosition, Vector3 distance, float moveSpeed)
+    {
+        startX = currectPosition.x;
+        startY = currectPosition.y;
+        endX = (currectPosition + distance).x;
+        endY = (currectPosition + distance).y;
+
+        startTime = Time.time;
+
+        this.moveSpeed = moveSpeed;
+    }
+    
     // 利用插值得到移动中的正确位置
     public Vector3 LerpMoveTo()
     {

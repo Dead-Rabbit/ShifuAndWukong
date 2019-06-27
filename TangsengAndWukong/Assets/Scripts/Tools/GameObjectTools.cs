@@ -9,7 +9,6 @@ public class GameObjectTools
             if (t.name == name) 
             {
                 //要做的事
-//                Debug.Log(t.name);
                 return t;    
             }    
         }

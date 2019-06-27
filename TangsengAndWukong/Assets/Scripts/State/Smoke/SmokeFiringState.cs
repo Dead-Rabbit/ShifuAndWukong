@@ -55,7 +55,7 @@ public class SmokeFiringState : State<Cigarette> {
                 obj.UpdateParticlePosition();
 
                 // 更新拥有者的烟瘾
-                obj.reduceTobaccoAddiction(0f);
+                obj.reduceTobaccoAddiction();
             }
             else {
                 obj.fireL = 0;

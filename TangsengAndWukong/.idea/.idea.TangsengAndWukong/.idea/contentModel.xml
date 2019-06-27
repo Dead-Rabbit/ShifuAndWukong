@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ContentModelStore">
     <e p="C:\Users\jack\.Rider2019.1\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\jack\.Rider2019.1\system\resharper-host\local\Transient\ReSharperHost\v191\SolutionCaches\_TangsengAndWukong.-1190935288.00" t="ExcludeRecursive" />
-    <e p="F:\unityFiles\TangsengAndWukong" t="IncludeRecursive">
+    <e p="C:\Users\jack\.Rider2019.1\system\resharper-host\local\Transient\ReSharperHost\v191\SolutionCaches\_TangsengAndWukong.-1511232945.00" t="ExcludeRecursive" />
+    <e p="F:\unityFiles\git\ShifuAndWukong\TangsengAndWukong" t="IncludeRecursive">
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
         <e p="Scripts" t="Include">
@@ -37,6 +37,9 @@
             <e p="State.cs" t="Include" />
             <e p="StateMachine.cs" t="Include" />
             <e p="WuKong" t="Include">
+              <e p="GiveCigaretteWukongState.cs" t="Include" />
+              <e p="GlobalWukongState.cs" t="Include" />
+              <e p="LightCigaretteWukongState.cs" t="Include" />
               <e p="StayWukongState.cs" t="Include" />
             </e>
           </e>

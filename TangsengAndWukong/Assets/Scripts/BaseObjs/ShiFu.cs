@@ -17,14 +17,14 @@ public class ShiFu : BasePlayer {
     // 存储烟的预设
     public GameObject cigarettePerfab;
     [HideInInspector] public GameObject cigarette;
-
+    [HideInInspector] public Vector3 tobaccoPosition = new Vector3(0.06f, -0.135f, 0); // 记录烟在嘴巴的位置
     [HideInInspector] public float tobaccoAddiction = 0f; // 烟瘾
-    private float tobaccoAddictionThresholdLookAt; // 瞪悟空的阈值
     private float maxTobaccoAddiction = 100f; // max
+    private float tobaccoAddictionThresholdLookAt; // 瞪悟空的阈值
     [HideInInspector] public TobaccoAddictionLevel tobaccoLevel;
     [HideInInspector] public TobaccoAddictionLevel preLevel; // 前置状态
 
-    public void Start() {
+    public void Awake() {
         runTime = 0;
 
         // 初始化数值
@@ -67,6 +67,25 @@ public class ShiFu : BasePlayer {
     }
 
     /**
+     * 拿到烟草 - 通过重新创建的方式
+     */
+    public void takeACigarette() {
+        GameObject cigarette = Instantiate(cigarettePerfab, tobaccoPosition,
+            transform.rotation);
+        cigarette.GetComponent<Cigarette>().Init(this, 3f, -1f);
+        cigarette.transform.parent = transform;
+        cigarette.transform.localPosition = new Vector3(0.06f, -0.135f, 0);
+        this.cigarette = cigarette;
+    }
+    
+    /**
+     * 点烟
+     */
+    public void fireACigarette() {
+        cigarette.GetComponent<Cigarette>().isLighting = true;
+    }
+
+    /**
      * 更新leve 这个可以放在state中，后面会优化
      */
     public void updateTobaccoLevel() {
@@ -83,6 +102,34 @@ public class ShiFu : BasePlayer {
         else if (tobaccoAddiction < maxTobaccoAddiction * 0.8) {
             tobaccoLevel = TobaccoAddictionLevel.STRIKE;
         }
+    }
+
+    /**
+     * 获取吸烟位置的全局坐标
+     */
+//    public Vector3 getCurrectCigarettePosition() {
+//        return transform.TransformPoint(tobaccoPosition);
+//    }
+
+    /**
+     * 计算点到吸烟位置之间的距离
+     */
+    public Vector3 calcuDistanceToMousePosition(Vector3 fromPosition) {
+        Vector3 worldPosition = transform.TransformPoint(tobaccoPosition);
+        return worldPosition - fromPosition;
+    }
+
+    /**
+     * 计算点到点烟位置之间的距离
+     */
+    public Vector3 calcuDistanceToLightPosition(Vector3 fromPosition) {
+        
+        if (cigarette == null)
+            return Vector3.zero;
+
+        Cigarette cigaretteScript = cigarette.GetComponent<Cigarette>();
+        Vector3 worldPosition = transform.TransformPoint(tobaccoPosition + new Vector3((cigaretteScript.buttL + cigaretteScript.pipeL) * 0.01f, 0, 0));
+        return worldPosition - fromPosition;
     }
 
     /**
@@ -128,7 +175,7 @@ public class ShiFu : BasePlayer {
     public override void showAllState() {
         string logs = "状态输出\n";
         logs += "烟瘾：" + tobaccoAddiction + "\n";
-        Debug.Log(logs);
+//        Debug.Log(logs);
     }
 
 

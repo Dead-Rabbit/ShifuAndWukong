@@ -23,6 +23,9 @@ public class Cigarette : MonoBehaviour {
     [HideInInspector] public Color nothingC = new Color(0, 0, 0, 0);
 
     [Range(1, 10)] public float reduceSpeed = 1;
+    
+    // 减烟瘾程度
+    private float tobaccoReduceSpeed = 0.4f;
 
     public bool isLighting;
     private GameObject smoke;
@@ -33,7 +36,7 @@ public class Cigarette : MonoBehaviour {
     public MoveTools _moveTools;
     private bool moveAct;
 
-    public void Start() {
+    public void Awake() {
         _stateMachine = new StateMachine<Cigarette>(this);
         _spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
         // 抽烟粒子相关
@@ -51,10 +54,11 @@ public class Cigarette : MonoBehaviour {
     }
 
     // 初始化相关值
-    public void Init(BasePlayer owner, float reduceSpeed) {
+    public void Init(BasePlayer owner, float reduceSpeed, float tobaccoReduceSpeed) {
         this.owner = owner;
 
         this.reduceSpeed = reduceSpeed;
+        this.tobaccoReduceSpeed = tobaccoReduceSpeed;
         isLighting = false;
     }
 
@@ -78,9 +82,10 @@ public class Cigarette : MonoBehaviour {
     }
 
     // 更新拥有者的烟瘾程度
-    public void reduceTobaccoAddiction(float value) {
+    public void reduceTobaccoAddiction() {
+        Debug.Log("reduce " + tobaccoReduceSpeed);
         ShiFu shifu = (ShiFu) owner;
-        shifu.updateTobaccoAddiction(value);
+        shifu.updateTobaccoAddiction(tobaccoReduceSpeed);
     }
 
     // 设置目标点
